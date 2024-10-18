@@ -6,67 +6,75 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HNI_TPMoyennes
+namespace TPMoyennes
 {
     class Eleve
     {
-        public string Nom { get; set;  }
+        public string prenom {  get; set; }
+        public string nom { get; set;  }
         public int NbMatieres { get; set; }
-        public double[,] notes { get; set; }
-        public int[] compteurNotes;
+        public Note[,] notes; // { get; set; }
+        public  const int compteurNotes=5;
 
-        public Eleve(string nom, int NbMaxMatieres)
+        public Eleve(string prenom, string nom, int NbMaxMatieres)
         {
-            Nom = nom;
-            NbMatieres = NbMaxMatieres;
-            notes = new double[NbMaxMatieres,200];
-            compteurNotes = new int [NbMaxMatieres];
+            //Prenom = prenom;
+            //Nom = nom;
+            notes = new Note[NbMaxMatieres,200];
+            
         }
 
         // index => matière
-        public void AjoutNote(int index, double note) {
+        public void ajouterNote(int matiere, Note note,int index)
+        {
         
-                if (compteurNotes[index] < 200)
-                {
-                    notes[index, compteurNotes[index]] = note;
-                    compteurNotes[index]++;
-                }
+                notes[matiere, index] = note;
             
         }
 
 
-        public double MoyenneMatiere(int index) {
-            if (compteurNotes[index] > 0)
-            {
-                double somme = 0.0;
-                for (int i = 0; i < compteurNotes[index]; i++)
+        public double moyenneMatiere(int matiere)
+        {
+            
+                float somme = 0;
+                int count = 0;
+                for (int i = 0; i < compteurNotes; i++)
                 {
-                     somme += notes[index, i];
+                    if (notes[matiere,i] != null)
+                    {
+                        somme += notes[matiere, i].note;
+                        count++;
+                    }
+                     
                 }
-                return (somme / compteurNotes[index]);
+                if (count > 0)
+                {
+                    return (somme / count);
+                }
+                return 0.00;
+                
                
 
             
-            }
-            return 0.00;
+           
         }
 
-        public double MoyenneGenerale()
+        public double moyenneGeneral()
         {
             double sommeMoyennes = 0.00;
-            int nombreMatieres = 0;
+            int count = 0;
 
-            for (int i = 0; i < NbMatieres; i++)
+            for (int i = 0; i < notes.GetLength(0); i++)
             {
-                if (compteurNotes[i] > 0)
+                if (moyenneMatiere(i) > 0)
                 {
-                    sommeMoyennes += MoyenneMatiere(i);
-                    nombreMatieres++;
+                    sommeMoyennes += moyenneMatiere(i);
+                    count++;
                 }
             }
-            if (nombreMatieres > 0)
+            if (count > 0)
             {
-                return (sommeMoyennes/nombreMatieres);
+                return (sommeMoyennes/count);
             }
             return 0.00;
             

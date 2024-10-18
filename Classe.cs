@@ -4,71 +4,81 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HNI_TPMoyennes
+namespace TPMoyennes
 {
     class Classe
     {
-        public Eleve[] eleves;
+        public string nomClasse { get; set; }
+        public Eleve[] eleves { get; set; }
+        public string[] matieres { get; set; }
+        public int nombreMatieres;
         public int nombreEleves;
+        public const int MaxEleves = 30; // max 30 eleves
 
-        public Classe(int maxEleves)
+        public Classe(string nomClasse)
         {
-            eleves = new Eleve[maxEleves];
-            nombreEleves = 0;
+            
+            eleves = new Eleve[MaxEleves];
+            matieres = new string[10]; //max 10 matières
         }
 
-        public void AjouterEleve(Eleve eleve)
+        public void ajouterEleve(string prenom,string nom)
         {
-            if (nombreEleves < eleves.Length)
+            if (nombreEleves < 30)
             {
-                eleves[nombreEleves] = eleve;
+                eleves[nombreEleves] = new Eleve(prenom, nom, nombreMatieres);
                 nombreEleves++;
             }
         }
 
-        public double MoyenneClasseMatiere(int index)
+        public void ajouterMatiere(string matiere)
         {
-            double sommeMoyennes = 0.00;
-            int nombreMatieres = 0;
-
-            foreach (var eleve in eleves)
+            if (nombreMatieres < 10)
             {
-                if (eleve != null)
+                matieres[nombreMatieres] = matiere;
+                nombreMatieres++;
+            }
+        }
+
+        public double moyenneMatiere(int matieres)
+        {
+            double somme = 0.00;
+            int count = 0;
+
+            for (int i = 0; i< nombreEleves; i++)
+            {
+                if (eleves[i] != null)
                 {
-                    if (eleve.MoyenneMatiere(index) > 0)
-                    {
-                        sommeMoyennes += eleve.MoyenneMatiere(index);
-                        nombreMatieres++;
-                    }
+                    
+                        somme += eleves[i].moyenneMatiere(matieres);
+                        count++;
+                    
                 }
 
             }
             if (nombreMatieres > 0) 
             {
-                return (sommeMoyennes / nombreMatieres);
+                return (somme / count);
             }
             return 0.00;
         }
 
-        public double MoyenneGeneraleClasse()
+        public double moyenneGeneral()
         {
-            double sommeMoyennes = 0.00;
-            int nombreElevesAvecNotes = 0;
+            double somme = 0.00;
+            int count = 0;
 
-            foreach (var eleve in eleves)
+            for (int i = 0; i < nombreMatieres; i++)
             {
-                if (eleve != null)
-                {
-                    sommeMoyennes += eleve.MoyenneGenerale();
-                    if (eleve.MoyenneGenerale() > 0)
-                    {
-                        nombreElevesAvecNotes++;
-                    }
-                }
+                
+                    somme += moyenneMatiere(i);
+                count++;
+                   
+                
             }
-            if (nombreElevesAvecNotes > 0)
+            if (count > 0)
             {
-                return (sommeMoyennes / nombreElevesAvecNotes);
+                return (somme / count);
             }
             return 0.00;
             
