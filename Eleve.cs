@@ -20,7 +20,7 @@ namespace TPMoyennes
         {
             //Prenom = prenom;
             //Nom = nom;
-            notes = new Note[NbMaxMatieres,200];
+            notes = new Note[NbMaxMatieres,compteurNotes];
             
         }
 
