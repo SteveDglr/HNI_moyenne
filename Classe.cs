@@ -44,6 +44,7 @@ namespace TPMoyennes
         {
             double somme = 0.00;
             int count = 0;
+            double moyenne;
 
             for (int i = 0; i< nombreEleves; i++)
             {
@@ -58,7 +59,8 @@ namespace TPMoyennes
             }
             if (nombreMatieres > 0) 
             {
-                return (somme / count);
+                moyenne = somme / count;
+                return Math.Round(moyenne, 2);
             }
             return 0.00;
         }
@@ -67,6 +69,7 @@ namespace TPMoyennes
         {
             double somme = 0.00;
             int count = 0;
+            double moyenne;
 
             for (int i = 0; i < nombreMatieres; i++)
             {
@@ -78,7 +81,8 @@ namespace TPMoyennes
             }
             if (count > 0)
             {
-                return (somme / count);
+                moyenne = somme / count;
+                return Math.Round(moyenne, 2);
             }
             return 0.00;
             

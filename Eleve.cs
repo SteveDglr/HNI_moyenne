@@ -24,7 +24,7 @@ namespace TPMoyennes
             
         }
 
-        // index => matière
+        
         public void ajouterNote(int matiere, Note note,int index)
         {
         
@@ -36,20 +36,22 @@ namespace TPMoyennes
         public double moyenneMatiere(int matiere)
         {
             
-                float somme = 0;
+                double somme = 0;
                 int count = 0;
+                double moyenne = 0;
                 for (int i = 0; i < compteurNotes; i++)
                 {
                     if (notes[matiere,i] != null)
                     {
-                        somme += notes[matiere, i].note;
+                        somme = somme + notes[matiere, i].note;
                         count++;
                     }
                      
                 }
                 if (count > 0)
                 {
-                    return (somme / count);
+                    moyenne = (somme/count);
+                return Math.Round(moyenne, 2);
                 }
                 return 0.00;
                 
@@ -63,6 +65,7 @@ namespace TPMoyennes
         {
             double sommeMoyennes = 0.00;
             int count = 0;
+            double Moyenne;
 
             for (int i = 0; i < notes.GetLength(0); i++)
             {
@@ -74,7 +77,8 @@ namespace TPMoyennes
             }
             if (count > 0)
             {
-                return (sommeMoyennes/count);
+                Moyenne = (sommeMoyennes/count);
+                return Math.Round(Moyenne, 2);
             }
             return 0.00;
             
