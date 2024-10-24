@@ -10,19 +10,19 @@ namespace TPMoyennes
 {
     class Eleve
     {
-        public required string prenom {  get; set; }
-        public required string nom { get; set;  }
+        public string prenom {  get; set; }
+        public string nom { get; set;  }
         public int NbMatieres { get; set; }
         //public Note[,] notes; // { get; set; }
         public  const int compteurNotes=5;
        
 
         public List<Note> Notes = new List<Note>(); 
-        public Eleve(string prenom, string nom)
+        public Eleve(string Prenom, string Nom)
         {
-            //Prenom = prenom;
-            //Nom = nom;
-            Notes = new List<Note>();
+            this.prenom = Prenom;
+            this.nom = Nom;
+            //Notes = new List<Note>();
             
         }
 
@@ -54,7 +54,7 @@ namespace TPMoyennes
             var MoyGen = new List<double>();
             for (int i = 0; i < 10; i++)
             {
-                MoyGen.Add(moyenneGeneral());
+                MoyGen.Add(moyenneMatiere(i));
             }
             return Math.Round((MoyGen).Average(), 2);
             /*
