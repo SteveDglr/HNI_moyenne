@@ -10,64 +10,59 @@ namespace TPMoyennes
 {
     class Eleve
     {
-        public string prenom {  get; set; }
-        public string nom { get; set;  }
+        public required string prenom {  get; set; }
+        public required string nom { get; set;  }
         public int NbMatieres { get; set; }
-        public Note[,] notes; // { get; set; }
+        //public Note[,] notes; // { get; set; }
         public  const int compteurNotes=5;
+       
 
-        public Eleve(string prenom, string nom, int NbMaxMatieres)
+        public List<Note> Notes = new List<Note>(); 
+        public Eleve(string prenom, string nom)
         {
             //Prenom = prenom;
             //Nom = nom;
-            notes = new Note[NbMaxMatieres,compteurNotes];
+            Notes = new List<Note>();
             
         }
 
         
-        public void ajouterNote(int matiere, Note note,int index)
+        public void ajouterNote(Note note)
         {
         
-                notes[matiere, index] = note;
+                Notes.Add(note);
             
         }
 
 
         public double moyenneMatiere(int matiere)
         {
-            
-                double somme = 0;
-                int count = 0;
-                double moyenne = 0;
-                for (int i = 0; i < compteurNotes; i++)
-                {
-                    if (notes[matiere,i] != null)
-                    {
-                        somme = somme + notes[matiere, i].note;
-                        count++;
-                    }
-                     
-                }
-                if (count > 0)
-                {
-                    moyenne = (somme/count);
-                return Math.Round(moyenne, 2);
-                }
-                return 0.00;
-                
-               
 
+            // filtre par moyenne et par note
+            var notesMatiere = Notes.Where(n => n.matiere == matiere).Select(n => n.note);
+            // s'il y a des notes =>
+            return Math.Round((notesMatiere.Any() ? notesMatiere.Average() : 0),2);
+            
+               
+                
             
            
         }
 
         public double moyenneGeneral()
         {
+            var MoyGen = new List<double>();
+            for (int i = 0; i < 10; i++)
+            {
+                MoyGen.Add(moyenneGeneral());
+            }
+            return Math.Round((MoyGen).Average(), 2);
+            /*
             double sommeMoyennes = 0.00;
             int count = 0;
             double Moyenne;
 
-            for (int i = 0; i < notes.GetLength(0); i++)
+            for (int i = 0; i < 10; i++)
             {
                 if (moyenneMatiere(i) > 0)
                 {
@@ -81,7 +76,8 @@ namespace TPMoyennes
                 return Math.Round(Moyenne, 2);
             }
             return 0.00;
-            
+            */
+
 
         }
 

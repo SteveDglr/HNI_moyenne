@@ -33,9 +33,9 @@ namespace TPMoyennes
             sixiemeA.ajouterMatiere("Histoire");
             Random random = new Random();
             // Ajout de 5 notes à chaque élève et dans chaque matière
-            for (int ieleve = 0; ieleve < sixiemeA.eleves.Length; ieleve++)
+            for (int ieleve = 0; ieleve < sixiemeA.eleves.Count; ieleve++)
             {
-                for (int matiere = 0; matiere < sixiemeA.matieres.Length; matiere++)
+                for (int matiere = 0; matiere < sixiemeA.matieres.Count; matiere++)
                 {
                     for (int i = 0; i < 5; i++)
                     {

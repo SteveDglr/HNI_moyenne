@@ -8,84 +8,57 @@ namespace TPMoyennes
 {
     class Classe
     {
-        public string nomClasse { get; set; }
-        public Eleve[] eleves { get; set; }
-        public string[] matieres { get; set; }
+        public required string nomClasse { get; set; }
+        public List<Eleve> eleves { get; set; }
+        public List<string> matieres { get; set; }
         public int nombreMatieres;
-        public int nombreEleves;
+        //public int nombreEleves;
         public const int MaxEleves = 30; // max 30 eleves
 
         public Classe(string nomClasse)
         {
             
-            eleves = new Eleve[MaxEleves];
-            matieres = new string[10]; //max 10 matières
+            eleves = new List<Eleve>();
+            matieres = new List<string>();
         }
 
         public void ajouterEleve(string prenom,string nom)
         {
-            if (nombreEleves < 30)
+            if (eleves.Count < 30)
             {
-                eleves[nombreEleves] = new Eleve(prenom, nom, nombreMatieres);
-                nombreEleves++;
+                eleves.Add(new Eleve(prenom, nom));
+
+            }
+            else
+            {
+                Console.WriteLine("Le nombre d'élève est trop important pour cette classe");
             }
         }
 
         public void ajouterMatiere(string matiere)
         {
-            if (nombreMatieres < 10)
+            if (matieres.Count < 10)
             {
-                matieres[nombreMatieres] = matiere;
-                nombreMatieres++;
+                matieres.Add(matiere);
+                
             }
         }
 
         public double moyenneMatiere(int matieres)
         {
-            double somme = 0.00;
-            int count = 0;
-            double moyenne;
-
-            for (int i = 0; i< nombreEleves; i++)
-            {
-                if (eleves[i] != null)
-                {
-                    
-                        somme += eleves[i].moyenneMatiere(matieres);
-                        count++;
-                    
-                }
-
-            }
-            if (nombreMatieres > 0) 
-            {
-                moyenne = somme / count;
-                return Math.Round(moyenne, 2);
-            }
-            return 0.00;
+            var MoyClasse = eleves.Select(e => e.moyenneMatiere(matieres));
+            return Math.Round((MoyClasse.Average()), 2);
         }
 
         public double moyenneGeneral()
         {
-            double somme = 0.00;
-            int count = 0;
-            double moyenne;
-
-            for (int i = 0; i < nombreMatieres; i++)
+            var MoyGenClasse = new List<double>();
+            for (int i = 0; i< 10; i++)
             {
-                
-                    somme += moyenneMatiere(i);
-                count++;
-                   
-                
+                MoyGenClasse.Add(moyenneGeneral());
             }
-            if (count > 0)
-            {
-                moyenne = somme / count;
-                return Math.Round(moyenne, 2);
-            }
-            return 0.00;
-            
+            return Math.Round((MoyGenClasse).Average(), 2); 
+              
         }
 
         
