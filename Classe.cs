@@ -11,8 +11,7 @@ namespace TPMoyennes
         public string nomClasse { get; set; }
         public List<Eleve> eleves { get; set; }
         public List<string> matieres { get; set; }
-        public int nombreMatieres;
-        //public int nombreEleves;
+        
         public const int MaxEleves = 30; // max 30 eleves
 
         public Classe(string NomClasse)
@@ -44,7 +43,7 @@ namespace TPMoyennes
             }
         }
 
-        public double moyenneMatieres(int matieres)
+        public double moyenneMatiere(int matieres)
         {
             var MoyClasse = eleves.Select(e => e.moyenneMatiere(matieres));
             return Math.Round((MoyClasse.Average()), 2);
@@ -55,7 +54,7 @@ namespace TPMoyennes
             var MoyGenClasse = new List<double>();
             for (int i = 0; i< 10; i++)
             {
-                MoyGenClasse.Add(moyenneMatieres(i));
+                MoyGenClasse.Add(moyenneMatiere(i));
             }
             return Math.Round((MoyGenClasse).Average(), 2); 
               

@@ -13,7 +13,7 @@ namespace TPMoyennes
         public string prenom {  get; set; }
         public string nom { get; set;  }
         public int NbMatieres { get; set; }
-        //public Note[,] notes; // { get; set; }
+       
         public  const int compteurNotes=5;
        
 
@@ -22,7 +22,7 @@ namespace TPMoyennes
         {
             this.prenom = Prenom;
             this.nom = Nom;
-            //Notes = new List<Note>();
+            
             
         }
 
@@ -57,26 +57,7 @@ namespace TPMoyennes
                 MoyGen.Add(moyenneMatiere(i));
             }
             return Math.Round((MoyGen).Average(), 2);
-            /*
-            double sommeMoyennes = 0.00;
-            int count = 0;
-            double Moyenne;
-
-            for (int i = 0; i < 10; i++)
-            {
-                if (moyenneMatiere(i) > 0)
-                {
-                    sommeMoyennes += moyenneMatiere(i);
-                    count++;
-                }
-            }
-            if (count > 0)
-            {
-                Moyenne = (sommeMoyennes/count);
-                return Math.Round(Moyenne, 2);
-            }
-            return 0.00;
-            */
+            
 
 
         }
